@@ -152,7 +152,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                         var parentFound = false;
 
                         while (angular.isDefined(target) && target !== null && !parentFound) {
-                            if (_.contains(target.className.split(' '), 'multiselect-parent') && !parentFound) {
+                            if (_.isString(target.className) && _.contains(target.className.split(' '), 'multiselect-parent') && !parentFound) {
                                 if(target === $dropdownTrigger) {
                                     parentFound = true;
                                 }
@@ -177,7 +177,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 };
 
                 $scope.getButtonText = function () {
-                    if ($scope.settings.dynamicTitle && ($scope.selectedModel.length > 0 || (angular.isObject($scope.selectedModel) && _.keys($scope.selectedModel).length > 0))) {
+                    if ($scope.settings.dynamicTitle && $scope.selectedModel && ($scope.selectedModel.length > 0 || (angular.isObject($scope.selectedModel) && _.keys($scope.selectedModel).length > 0))) {
                         if ($scope.settings.smartButtonMaxItems > 0) {
                             var itemsText = [];
 
