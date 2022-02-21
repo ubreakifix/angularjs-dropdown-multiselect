@@ -1,9 +1,12 @@
 version: 0.2
 phases:
   pre_build:
-    - git tag
+    commands:
+      - git tag
   build:
-    - ./node_modules/grunt/bin/grunt
+    commands:
+      - ./node_modules/grunt/bin/grunt
   post_build:
-    - CURRENT_PROJECT_VERSION=$(npm view --json | jq .version | sed 's/"//g')
-    - git tag -a $CURRENT_PROJECT_VERSION -m "$CURRENT_PROJECT_VERSION"
+    commands:
+      - CURRENT_PROJECT_VERSION=$(npm view --json | jq .version | sed 's/"//g')
+      - git tag -a $CURRENT_PROJECT_VERSION -m "$CURRENT_PROJECT_VERSION"
