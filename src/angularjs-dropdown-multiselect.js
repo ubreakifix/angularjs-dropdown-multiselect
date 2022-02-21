@@ -288,6 +288,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                     return _.findIndex($scope.selectedModel, getFindObj(id)) !== -1;
                 };
 
+                // making the searchField work
                 $scope.getFilter = function(searchFilter) {
                     var filter = {};
                     filter[$scope.settings.searchField] = searchFilter;
