@@ -15,7 +15,6 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 searchFilter: '=?',
                 translationTexts: '=',
                 groupBy: '@',
-                searchField: "$"
             },
             template: function (element, attrs) {
                 var checkboxes = attrs.checkboxes ? true : false;
