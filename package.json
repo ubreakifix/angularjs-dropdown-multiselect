@@ -1,6 +1,6 @@
 {
   "author": "",
-  "name": "angularjs-dropdown-multiselect-demo",
+  "name": "@ubreakifix/angularjs-dropdown-multiselect",
   "version": "1.6.0",
   "description": "",
   "homepage": "",
@@ -21,7 +21,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
+  "repository": "git@github.com:ubreakifix/angularjs-dropdown-multiselect.git",
   "engines": {
     "node": "0.10.10"
   }
