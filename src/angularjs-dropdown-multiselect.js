@@ -30,10 +30,10 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 template += '<li ng-show="settings.enableSearch" class="divider"></li>';
 
                 if (groups) {
-                    template += '<li ng-repeat-start="option in orderedItems | filter: searchFilter" ng-show="getPropertyForObject(option, settings.groupBy) !== getPropertyForObject(orderedItems[$index - 1], settings.groupBy)" role="presentation" class="dropdown-header">{{ getGroupTitle(getPropertyForObject(option, settings.groupBy)) }}</li>';
+                    template += '<li ng-repeat-start="option in orderedItems | filter: getFilter(searchFilter)" ng-show="getPropertyForObject(option, settings.groupBy) !== getPropertyForObject(orderedItems[$index - 1], settings.groupBy)" role="presentation" class="dropdown-header">{{ getGroupTitle(getPropertyForObject(option, settings.groupBy)) }}</li>';
                     template += '<li ng-repeat-end role="presentation">';
                 } else {
-                    template += '<li role="presentation" ng-repeat="option in options | filter: searchFilter">';
+                    template += '<li role="presentation" ng-repeat="option in options | filter: getFilter(searchFilter)">';
                 }
 
                 template += '<a role="menuitem" tabindex="-1" ng-click="setSelectedItem(getPropertyForObject(option,settings.idProp))">';
@@ -92,6 +92,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                     closeOnDeselect: false,
                     groupBy: $attrs.groupBy || undefined,
                     groupByTextProvider: null,
+                    searchField: '$',
                     smartButtonMaxItems: 0,
                     smartButtonTextConverter: angular.noop
                 };
@@ -286,6 +287,16 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                     }
 
                     return _.findIndex($scope.selectedModel, getFindObj(id)) !== -1;
+                };
+
+                // taken from: https://github.com/dotansimha/angularjs-dropdown-multiselect/commit/4c43a2865092d6020ad659495d43a22ab10b1093
+                // note: the documentation changes listed in the commit above were not cherry picked; only the functionality
+                $scope.getFilter = function (searchFilter) {
+                    var filter = {};
+
+                    filter[$scope.settings.searchField] = searchFilter;
+
+                    return filter;
                 };
 
                 $scope.externalEvents.onInitDone();
