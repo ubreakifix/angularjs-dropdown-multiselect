@@ -6,8 +6,7 @@ on:
   workflow_dispatch:
 jobs:
   publish:
-    runs-on: [npr-common-4gb]
-    container: docker.artifactory.entarch.prd.aws.asurion.net/cloudengineering/pse-ubuntu
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
