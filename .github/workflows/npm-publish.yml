@@ -1,0 +1,32 @@
+name: NPM Publish 
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+jobs:
+  publish:
+    runs-on: [npr-common-4gb]
+    container: docker.artifactory.entarch.prd.aws.asurion.net/cloudengineering/pse-ubuntu
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+          registry-url: "https://npm.pkg.github.com"
+      - name: NPM Install
+        run: npm install
+      - name: Install Grunt
+        run: npm install -g grunt-cli
+      - name: Grunt
+        run: grunt
+      - name: NPM Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release new versions using AutoTagBot
+        uses: snapserv/action-autotagbot@master
+        with:
+          api_token: '${{ secrets.GITHUB_TOKEN }}'
+          source_file: 'package.json'
+          version_pattern: '"version"\s*:\s*"(?<version>[0-9.]+)"'
