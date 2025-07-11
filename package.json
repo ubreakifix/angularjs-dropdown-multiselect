@@ -23,6 +23,6 @@
   },
   "repository": "git@github.com:ubreakifix/angularjs-dropdown-multiselect.git",
   "engines": {
-    "node": "0.10.10"
+    "node": "14.21.3"
   }
 }
